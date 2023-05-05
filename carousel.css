@@ -88,11 +88,11 @@ body{
  }
 
 
-.carousel .carousel-actions button#carousel-button-prev{
+.carousel-button-prev{
 
-    margin-left:10px;
+    margin: 0px 20px;
 }
-.carousel .carousel-actions button#carousel-button-next{
+.carousel-button-next{
 
     margin-right:10px;
 }
@@ -106,7 +106,6 @@ body{
    }
 
 }
-
 
 
 
