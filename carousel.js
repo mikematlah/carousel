@@ -1,101 +1,23 @@
-const slides = document.getElementsByClassName("carousel-item")
-const carouselBtnNext = document.getElementById('carousel-button-next')
-const carouselBtnPrev = document.getElementById('carousel-button-prev')
-const list = document.querySelectorAll(".carousel li")
-carouselBtnNext.addEventListener('click',moveToNextSlide )
-carouselBtnPrev.addEventListener('click',moveToPrevSlide )
+const prevBtn = document.querySelector('.carousel-button-prev')
+const nextBtn = document.querySelector('.carousel-button-next')
+const list = document.querySelectorAll(".carousel li");
 
-let slidePosition = 0
-const totalSlides = slides.length
+const totalSlides = list.length;
+let slideIndex = 1;
 
-function hideAllSlides(){
+function showSlide(n){
+    if(n > totalSlides) slideIndex = 1;
 
-    for(let slide of slides){
+    if(n < 1) slideIndex = totalSlides;
 
-        slide.classList.remove("carousel-item-visible")  
-        
-    }
-}
-function moveToNextSlide(){ 
-    
-    hideAllSlides()
+    list.forEach( el => el.classList.remove('carousel-item-visible'));
 
-    if(slidePosition === totalSlides-1){
-
-        slidePosition = 0
-    }else{
-
-        slidePosition++
-    }
-
-    slides[slidePosition].classList.add("carousel-item-visible")
-    showCurrentIndicatior(slidePosition)
+    list[slideIndex - 1].classList.add('carousel-item-visible');
 }
 
-function moveToPrevSlide(){
-    
-    hideAllSlides()
+const plusOrMinusSlide = (n) => showSlide(slideIndex += n)
 
-    if(slidePosition=== 0 ){
+prevBtn.addEventListener('click',() => plusOrMinusSlide(-1))
+nextBtn.addEventListener('click',() => plusOrMinusSlide(1))
 
-      slidePosition = totalSlides -1
-
-        
-    }else{
-        slidePosition--
-    }
-
-    slides[slidePosition].classList.add("carousel-item-visible")
-    showCurrentIndicatior(slidePosition)
-   
-}
-
-
-for(let i = 0; i < list.length; i ++){
-
-    list[i].addEventListener('click',function(){
-
-        slidePosition = i
-        showCurrentIndicatior(slidePosition)
-        hideAllSlides()
-        slides[slidePosition].classList.add("carousel-item-visible")
-
-    })
-   
-
-}
-function showCurrentIndicatior(number){
-    for(let i = 0; i < list.length; i ++){
-
-        list[i].classList.remove("selected")
-    }
-    list[number].classList.add("selected")
-
-   }
-
-   function moveSlides(){
-
-    
-    hideAllSlides()
-
-    if(slidePosition === totalSlides-1){
-
-        slidePosition = 0
-    }else{
-
-        slidePosition++
-    }
-
-    slides[slidePosition].classList.add("carousel-item-visible")
-    showCurrentIndicatior(slidePosition)
-
-   }
-
-   setInterval(moveSlides, 1500)
-    
-
- 
-
-
-
-
+setInterval(() => plusOrMinusSlide(1),1500)
